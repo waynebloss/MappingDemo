@@ -138,15 +138,18 @@
             this.geocoder.geocode(options, function(results, status) {
                 if (status != google.maps.GeocoderStatus.OK)
                     return self.handleGeocodingError(status);
-                var fr = results[0];
-                self.gmap.setCenter(fr.geometry.location);
+                var loc = results[0].geometry.location;
+                self.gmap.setCenter(loc);
                 self.marker = new google.maps.Marker({
                     map: self.gmap,
                     icon: getIconForColor('red'),
-                    position: fr.geometry.location,
+                    position: loc,
                     title: self.address,
                     draggable: true
                 });
+                // Set the host programs position right away.
+                window.external.setGeocodePosition(loc.lat(), loc.lng());
+                // Also update the host program anytime the marker is moved.
                 google.maps.event.addListener(self.marker, 'position_changed', function() {
                     var pos = self.marker.getPosition();
                     window.external.setGeocodePosition(pos.lat(), pos.lng());
