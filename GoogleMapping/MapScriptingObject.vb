@@ -11,41 +11,59 @@ Public Class MapScriptingObject
     ''' Event that is raised when the mapping javascript has an error.
     ''' </summary>
     ''' <remarks></remarks>
-    Friend Event ErrorOccurred As EventHandler
+    Friend Event ErrorOccurred As EventHandler(Of MapEventArgs)
     ''' <summary>
     ''' Event that is raised when the mapping javascript changes the Geocoding position.
     ''' </summary>
     ''' <remarks></remarks>
-    Friend Event GeocodePositionUpdated As EventHandler
+    Friend Event GeocodingCompleted As EventHandler(Of MapEventArgs)
+    ''' <summary>
+    ''' Event that is raised when the javascript has completed a request for directions.
+    ''' </summary>
+    ''' <remarks></remarks>
+    Friend Event DirectionsCompleted As EventHandler(Of MapEventArgs)
 
     ''' <summary>
-    ''' Contains any error message set by the mapping javascript.
+    ''' Contains the results of a request for directions.
     ''' </summary>
     ''' <remarks></remarks>
-    Friend ErrorMessage As String
-    ''' <summary>
-    ''' Contains any Geocoding Latitude that was set by the mapping javascript.
-    ''' </summary>
-    ''' <remarks></remarks>
-    Friend GeocodeLat As Double
-    ''' <summary>
-    ''' Contains any Geocoding Longitude that was set by the mapping javascript.
-    ''' </summary>
-    ''' <remarks></remarks>
-    Friend GeocodeLng As Double
+    Private DirectionsSteps As List(Of MapDirectionsStep)
 
 #Region "Methods exposed to GoogleMapsHtml Javascript"
 
     Public Sub setError(errorMessage As String)
-        Me.ErrorMessage = errorMessage
-        RaiseEvent ErrorOccurred(Me, EventArgs.Empty)
+        Dim e = New MapEventArgs With {.ErrorMessage = errorMessage}
+        RaiseEvent ErrorOccurred(Me, e)
     End Sub
 
-    Public Sub setGeocodePosition(lat As Double, lng As Double)
-        Me.GeocodeLat = lat
-        Me.GeocodeLng = lng
-        RaiseEvent GeocodePositionUpdated(Me, EventArgs.Empty)
+    Public Sub setGeocodingResult(lat As Double, lng As Double)
+        Dim e = New MapEventArgs With {.GeocodeResult = New MapLatLng(lat, lng)}
+        RaiseEvent GeocodingCompleted(Me, e)
     End Sub
+
+    Public Sub setDirectionsResult(instructions As String)
+        Dim item = New MapDirectionsStep With {.Instructions = instructions}
+        If DirectionsSteps Is Nothing Then
+            DirectionsSteps = New List(Of MapDirectionsStep)()
+        End If
+        DirectionsSteps.Add(item)
+    End Sub
+
+    Public Sub setDirectionsCompleted()
+        If DirectionsSteps Is Nothing Then Exit Sub
+
+        Dim e = New MapEventArgs With {.DirectionsResult = DirectionsSteps}
+        DirectionsSteps = Nothing
+        RaiseEvent DirectionsCompleted(Me, e)
+    End Sub
+
+#End Region
+
+#Region "Utility Methods for dealing with Javascript"
+
+    Public Shared Function EscapeSingleQuotes(value As String) As String
+        Return value.Replace("'", "\'")
+    End Function
 
 #End Region
 

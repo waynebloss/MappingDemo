@@ -69,7 +69,10 @@
     <Import Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="MapDirectionsStep.vb" />
+    <Compile Include="MapEventArgs.vb" />
     <Compile Include="MapForDirections.vb" />
+    <Compile Include="MapLatLng.vb" />
     <Compile Include="MapScriptingObject.vb" />
     <Compile Include="MainView.vb">
       <SubType>Form</SubType>

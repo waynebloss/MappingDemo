@@ -83,8 +83,7 @@
         * Class for a map that shows one or more markers.
         */
         function MapWithMarkers() {
-            this.centerLat = 0.0;
-            this.centerLng = 0.0;
+            this.centerLatLng = createLatLng(0.0, 0.0);
             this.zoomLevel = 12;
             this.mapType = google.maps.MapTypeId.ROADMAP;
             this.markerOptions = [];
@@ -95,7 +94,7 @@
         MapWithMarkers.prototype.initialize = function() {
             this.gmap = new google.maps.Map(document.getElementById('map'), {
                 zoom: this.zoomLevel,
-                center: new google.maps.LatLng(this.centerLat, this.centerLng),
+                center: this.centerLatLng,
                 mapTypeId: this.mapType
             });
             this.infoWindow = new google.maps.InfoWindow();
@@ -113,8 +112,7 @@
         */
         function MapForGeocoding() {
             this.address = null;
-            this.addressLat = null;
-            this.addressLng = null;
+            this.addressLatLng = null;
             this.zoomLevel = 16;
             this.mapType = google.maps.MapTypeId.ROADMAP;
         }
@@ -135,8 +133,8 @@
             var options = {};
             if (this.address != null && this.address.length > 0)
                 options.address = this.address;
-            if (this.addressLat != null && this.addressLng != null) {
-                options.location = new google.maps.LatLng(this.addressLat, this.addressLng);
+            if (this.addressLatLng != null) {
+                options.location = addressLatLng;
             }
             this.geocoder.geocode(options, function(results, status) {
                 if (status != google.maps.GeocoderStatus.OK)
@@ -151,11 +149,11 @@
                     draggable: true
                 });
                 // Set the host programs position right away.
-                window.external.setGeocodePosition(loc.lat(), loc.lng());
+                window.external.setGeocodingResult(loc.lat(), loc.lng());
                 // Also update the host program anytime the marker is moved.
                 google.maps.event.addListener(self.marker, 'position_changed', function() {
                     var pos = self.marker.getPosition();
-                    window.external.setGeocodePosition(pos.lat(), pos.lng());
+                    window.external.setGeocodingResult(pos.lat(), pos.lng());
                 });
             });
         };
@@ -195,6 +193,18 @@
                 if (status != google.maps.DirectionsStatus.OK)
                     return self.handleRouteRequestError(status);
                 self.directionsDisplay.setDirections(response);
+                
+                for(var routeid in response.routes) {
+                    var route = response.routes[routeid];
+                    for(var legid in route.legs) {
+                        var leg = route.legs[legid];
+                        for(var stepid in leg.steps) {
+                            var step = leg.steps[stepid];
+                            window.external.setDirectionsResult(step.instructions);
+                        }
+                    }
+                }
+                window.external.setDirectionsCompleted();
             });
         };
     </script>
@@ -204,8 +214,7 @@
         * MapWithMarkers Example:
         * ---------------------------------------------------------------------
         var map = new MapWithMarkers();
-        map.centerLat = 40.42951;
-        map.centerLng = -86.87892;
+        map.centerLatLng = createLatLng(40.42951, -86.87892);
         map.markerOptions = [
             createFixedMarkerOptions(40.42951, -86.87892, "green", 
                 "TRI-US REHABILITATION CENTER",
@@ -227,6 +236,7 @@
         * ---------------------------------------------------------------------
         var map = new MapForGeocoding();
         map.address = '55 Gilbert St N, Tinton Falls, NJ 07701';
+        // map.addressLatLng = createLatLng(40.327374, -74.075921);  // Optional
         map.initialize();
         */
 
@@ -234,11 +244,11 @@
         * ---------------------------------------------------------------------
         * MapForDirections Example:
         * ---------------------------------------------------------------------
-        */
         var map = new MapForDirections();
         map.origin = createLatLng(40.153826, -74.220010);       // 74 Salem Hill Road, Howell NJ 07731
         map.destination = createLatLng(40.327374, -74.075921);  // 55 Gilbert St N, Tinton Falls, NJ 07701
         map.initialize();
+        */
 
         // The .NET code must write some Javascript that looks like one of the examples above.
         // Use the place-holder below can be used to insert the script. - WB
