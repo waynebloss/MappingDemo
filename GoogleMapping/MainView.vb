@@ -53,4 +53,8 @@
     Private Sub scriptObj_GeocodePositionUpdated() Handles scriptObj.GeocodePositionUpdated
         mainStatLbl.Text = "New Position: " + CStr(scriptObj.GeocodeLat) + ", " + CStr(scriptObj.GeocodeLng)
     End Sub
+
+    Private Sub mainTbShowMapForDirectionsBtn_Click(sender As Object, e As EventArgs) Handles mainTbShowMapForDirectionsBtn.Click
+        browser.DocumentText = My.Resources.GoogleMapsHtml
+    End Sub
 End Class

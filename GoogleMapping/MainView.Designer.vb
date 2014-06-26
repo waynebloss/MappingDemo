@@ -22,7 +22,6 @@ Partial Class MainView
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(MainView))
         Me.mainMnu = New System.Windows.Forms.MenuStrip()
         Me.fileMnu = New System.Windows.Forms.ToolStripMenuItem()
         Me.fileMnuExit = New System.Windows.Forms.ToolStripMenuItem()
@@ -32,6 +31,8 @@ Partial Class MainView
         Me.mainTbShowMapForGeocodingBtn = New System.Windows.Forms.ToolStripButton()
         Me.mainTbSep01 = New System.Windows.Forms.ToolStripSeparator()
         Me.mainTbShowMapWithMarkersBtn = New System.Windows.Forms.ToolStripButton()
+        Me.ToolStripSeparator1 = New System.Windows.Forms.ToolStripSeparator()
+        Me.mainTbShowMapForDirectionsBtn = New System.Windows.Forms.ToolStripButton()
         Me.mainStatStrip = New System.Windows.Forms.StatusStrip()
         Me.mainStatLbl = New System.Windows.Forms.ToolStripStatusLabel()
         Me.browser = New System.Windows.Forms.WebBrowser()
@@ -59,7 +60,7 @@ Partial Class MainView
         'fileMnuExit
         '
         Me.fileMnuExit.Name = "fileMnuExit"
-        Me.fileMnuExit.Size = New System.Drawing.Size(152, 22)
+        Me.fileMnuExit.Size = New System.Drawing.Size(92, 22)
         Me.fileMnuExit.Text = "E&xit"
         '
         'helpMnu
@@ -72,13 +73,13 @@ Partial Class MainView
         'helpMnuAbout
         '
         Me.helpMnuAbout.Name = "helpMnuAbout"
-        Me.helpMnuAbout.Size = New System.Drawing.Size(152, 22)
+        Me.helpMnuAbout.Size = New System.Drawing.Size(107, 22)
         Me.helpMnuAbout.Text = "&About"
         '
         'mainTb
         '
         Me.mainTb.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden
-        Me.mainTb.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mainTbShowMapForGeocodingBtn, Me.mainTbSep01, Me.mainTbShowMapWithMarkersBtn})
+        Me.mainTb.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mainTbShowMapForGeocodingBtn, Me.mainTbSep01, Me.mainTbShowMapWithMarkersBtn, Me.ToolStripSeparator1, Me.mainTbShowMapForDirectionsBtn})
         Me.mainTb.Location = New System.Drawing.Point(0, 24)
         Me.mainTb.Name = "mainTb"
         Me.mainTb.Size = New System.Drawing.Size(1008, 25)
@@ -87,11 +88,10 @@ Partial Class MainView
         '
         'mainTbShowMapForGeocodingBtn
         '
-        Me.mainTbShowMapForGeocodingBtn.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text
-        Me.mainTbShowMapForGeocodingBtn.Image = CType(resources.GetObject("mainTbShowMapForGeocodingBtn.Image"), System.Drawing.Image)
+        Me.mainTbShowMapForGeocodingBtn.Image = Global.GoogleMapping.My.Resources.Resources.map_magnify
         Me.mainTbShowMapForGeocodingBtn.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.mainTbShowMapForGeocodingBtn.Name = "mainTbShowMapForGeocodingBtn"
-        Me.mainTbShowMapForGeocodingBtn.Size = New System.Drawing.Size(146, 22)
+        Me.mainTbShowMapForGeocodingBtn.Size = New System.Drawing.Size(162, 22)
         Me.mainTbShowMapForGeocodingBtn.Text = "Show Map for Geocoding"
         '
         'mainTbSep01
@@ -101,12 +101,24 @@ Partial Class MainView
         '
         'mainTbShowMapWithMarkersBtn
         '
-        Me.mainTbShowMapWithMarkersBtn.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text
-        Me.mainTbShowMapWithMarkersBtn.Image = CType(resources.GetObject("mainTbShowMapWithMarkersBtn.Image"), System.Drawing.Image)
+        Me.mainTbShowMapWithMarkersBtn.Image = Global.GoogleMapping.My.Resources.Resources.google_map
         Me.mainTbShowMapWithMarkersBtn.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.mainTbShowMapWithMarkersBtn.Name = "mainTbShowMapWithMarkersBtn"
-        Me.mainTbShowMapWithMarkersBtn.Size = New System.Drawing.Size(138, 22)
+        Me.mainTbShowMapWithMarkersBtn.Size = New System.Drawing.Size(154, 22)
         Me.mainTbShowMapWithMarkersBtn.Text = "Show Map with Markers"
+        '
+        'ToolStripSeparator1
+        '
+        Me.ToolStripSeparator1.Name = "ToolStripSeparator1"
+        Me.ToolStripSeparator1.Size = New System.Drawing.Size(6, 25)
+        '
+        'mainTbShowMapForDirectionsBtn
+        '
+        Me.mainTbShowMapForDirectionsBtn.Image = Global.GoogleMapping.My.Resources.Resources.map
+        Me.mainTbShowMapForDirectionsBtn.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.mainTbShowMapForDirectionsBtn.Name = "mainTbShowMapForDirectionsBtn"
+        Me.mainTbShowMapForDirectionsBtn.Size = New System.Drawing.Size(157, 22)
+        Me.mainTbShowMapForDirectionsBtn.Text = "Show Map for Directions"
         '
         'mainStatStrip
         '
@@ -167,5 +179,7 @@ Partial Class MainView
     Friend WithEvents mainTbSep01 As System.Windows.Forms.ToolStripSeparator
     Friend WithEvents mainTbShowMapForGeocodingBtn As System.Windows.Forms.ToolStripButton
     Friend WithEvents browser As System.Windows.Forms.WebBrowser
+    Friend WithEvents ToolStripSeparator1 As System.Windows.Forms.ToolStripSeparator
+    Friend WithEvents mainTbShowMapForDirectionsBtn As System.Windows.Forms.ToolStripButton
 
 End Class

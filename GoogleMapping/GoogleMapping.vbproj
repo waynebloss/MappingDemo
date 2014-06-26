@@ -69,6 +69,7 @@
     <Import Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="MapForDirections.vb" />
     <Compile Include="MapScriptingObject.vb" />
     <Compile Include="MainView.vb">
       <SubType>Form</SubType>
@@ -120,6 +121,18 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\GoogleMapsHtml.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\map.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\google_map.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\layers_map.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\map_magnify.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
