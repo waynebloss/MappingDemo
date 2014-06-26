@@ -65,7 +65,7 @@
     Private Sub scriptObj_DirectionsCompleted(sender As Object, e As MapEventArgs) Handles scriptObj.DirectionsCompleted
         If e.DirectionsResult Is Nothing Then Exit Sub
         For Each item In e.DirectionsResult
-            DirectionsTxt.AppendText(item.Instructions)
+            DirectionsTxt.AppendText(item.Instructions + Environment.NewLine)
         Next
     End Sub
 
