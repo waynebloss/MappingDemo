@@ -32,6 +32,9 @@
     <script src="http://maps.google.com/maps/api/js?sensor=false"></script>
     <script src="http://google-maps-utility-library-v3.googlecode.com/svn/tags/markerwithlabel/1.1.9/src/markerwithlabel_packed.js"></script>
     <script type="text/javascript">
+        function createLatLng(lat, lng) {
+            return new google.maps.LatLng(lat, lng);
+        }
         /**
         * Creates a click-handler function that will show the infoWindow for a given marker.
         */
@@ -156,6 +159,44 @@
                 });
             });
         };
+        /**
+        * Class for a map that displays directions.
+        */
+        function MapForDirections() {
+            this.origin = null;
+            this.destination = null;
+            this.travelMode = google.maps.TravelMode.DRIVING;
+            this.zoomLevel = 14;
+            this.mapType = google.maps.MapTypeId.ROADMAP;
+        }
+
+        MapForDirections.prototype.handleRouteRequestError = function(reason) {
+            window.external.setError(reason);
+        };
+
+        MapForDirections.prototype.initialize = function() {
+            var self = this;
+            this.directionsService = new google.maps.DirectionsService();
+            this.directionsDisplay = new google.maps.DirectionsRenderer();
+            this.gmap = new google.maps.Map(document.getElementById('map'), {
+                zoom: this.zoomLevel,
+                center: this.origin,
+                mapTypeId: this.mapType
+            });
+            this.directionsDisplay.setMap(this.gmap);
+            // Create request for directions.
+            // See https://developers.google.com/maps/documentation/javascript/reference#DirectionsRequest
+            var request = {
+                origin: this.origin,
+                destination: this.destination,
+                travelMode: this.travelMode
+            };
+            this.directionsService.route(request, function(response, status) {
+                if (status != google.maps.DirectionsStatus.OK)
+                    return self.handleRouteRequestError(status);
+                self.directionsDisplay.setDirections(response);
+            });
+        };
     </script>
     <script type="text/javascript">
         /**
@@ -185,9 +226,19 @@
         * MapForGeocoding Example:
         * ---------------------------------------------------------------------
         var map = new MapForGeocoding();
-        map.address = '74 Salem Hill Road, Howell NJ 07731';
+        map.address = '55 Gilbert St N, Tinton Falls, NJ 07701';
         map.initialize();
         */
+
+        /**
+        * ---------------------------------------------------------------------
+        * MapForDirections Example:
+        * ---------------------------------------------------------------------
+        */
+        var map = new MapForDirections();
+        map.origin = createLatLng(40.153826, -74.220010);       // 74 Salem Hill Road, Howell NJ 07731
+        map.destination = createLatLng(40.327374, -74.075921);  // 55 Gilbert St N, Tinton Falls, NJ 07701
+        map.initialize();
 
         // The .NET code must write some Javascript that looks like one of the examples above.
         // Use the place-holder below can be used to insert the script. - WB

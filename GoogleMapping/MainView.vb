@@ -11,7 +11,8 @@
         ' Uncomment one of the following calls for the demo that you want to be the default. - WB
 
         'mainTbShowMapForGeocodingBtn_Click(mainTbShowMapForGeocodingBtn, EventArgs.Empty)
-        mainTbShowMapWithMarkersBtn_Click(mainTbShowMapWithMarkersBtn, EventArgs.Empty)
+        'mainTbShowMapWithMarkersBtn_Click(mainTbShowMapWithMarkersBtn, EventArgs.Empty)
+        mainTbShowMapForDirectionsBtn_Click(mainTbShowMapForDirectionsBtn, EventArgs.Empty)
 
     End Sub
 
