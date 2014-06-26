@@ -27,6 +27,7 @@
     End Sub
 
     Private Sub mainTbShowMapForGeocodingBtn_Click(sender As Object, e As EventArgs) Handles mainTbShowMapForGeocodingBtn.Click
+        MakeDirectionsVisible(False)
         ' Code to demonstrate geocoding in the WebBrowser control.
         Dim map = New MapForGeocoding()
         map.FindByAddress = "55 Gilbert St N, Tinton Falls, NJ 07701"
@@ -34,6 +35,7 @@
     End Sub
 
     Private Sub mainTbShowMapWithMarkersBtn_Click(sender As Object, e As EventArgs) Handles mainTbShowMapWithMarkersBtn.Click
+        MakeDirectionsVisible(False)
         ' Code to demonstrate displaying one or more markers in the WebBrowser control.
         Dim map = New MapWithMarkers()
         map.CenterLatLng = New MapLatLng(40.42951, -86.87892)
@@ -47,15 +49,23 @@
     End Sub
 
     Private Sub mainTbShowMapForDirectionsBtn_Click(sender As Object, e As EventArgs) Handles mainTbShowMapForDirectionsBtn.Click
+        DirectionsTxt.Clear()
+        MakeDirectionsVisible(True)
         Dim map = New MapForDirections()
         map.OriginLatLng = New MapLatLng(40.153826, -74.22001)
         map.DestinationLatLng = New MapLatLng(40.327374, -74.075921)
         browser.DocumentText = map.GetHtml()
     End Sub
 
+    Private Sub MakeDirectionsVisible(value As Boolean)
+        DirectionsTxt.Visible = value
+        VertSplitter.Visible = value
+    End Sub
+
     Private Sub scriptObj_DirectionsCompleted(sender As Object, e As MapEventArgs) Handles scriptObj.DirectionsCompleted
+        If e.DirectionsResult Is Nothing Then Exit Sub
         For Each item In e.DirectionsResult
-            Debug.Print(item.Instructions)
+            DirectionsTxt.AppendText(item.Instructions)
         Next
     End Sub
 

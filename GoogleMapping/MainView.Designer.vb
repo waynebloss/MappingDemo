@@ -36,6 +36,8 @@ Partial Class MainView
         Me.mainStatStrip = New System.Windows.Forms.StatusStrip()
         Me.mainStatLbl = New System.Windows.Forms.ToolStripStatusLabel()
         Me.browser = New System.Windows.Forms.WebBrowser()
+        Me.DirectionsTxt = New System.Windows.Forms.TextBox()
+        Me.VertSplitter = New System.Windows.Forms.Splitter()
         Me.mainMnu.SuspendLayout()
         Me.mainTb.SuspendLayout()
         Me.mainStatStrip.SuspendLayout()
@@ -145,11 +147,31 @@ Partial Class MainView
         Me.browser.Size = New System.Drawing.Size(1008, 523)
         Me.browser.TabIndex = 3
         '
+        'DirectionsTxt
+        '
+        Me.DirectionsTxt.Dock = System.Windows.Forms.DockStyle.Right
+        Me.DirectionsTxt.Location = New System.Drawing.Point(739, 49)
+        Me.DirectionsTxt.Multiline = True
+        Me.DirectionsTxt.Name = "DirectionsTxt"
+        Me.DirectionsTxt.Size = New System.Drawing.Size(269, 523)
+        Me.DirectionsTxt.TabIndex = 4
+        '
+        'VertSplitter
+        '
+        Me.VertSplitter.Dock = System.Windows.Forms.DockStyle.Right
+        Me.VertSplitter.Location = New System.Drawing.Point(731, 49)
+        Me.VertSplitter.Name = "VertSplitter"
+        Me.VertSplitter.Size = New System.Drawing.Size(8, 523)
+        Me.VertSplitter.TabIndex = 5
+        Me.VertSplitter.TabStop = False
+        '
         'MainView
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1008, 594)
+        Me.Controls.Add(Me.VertSplitter)
+        Me.Controls.Add(Me.DirectionsTxt)
         Me.Controls.Add(Me.browser)
         Me.Controls.Add(Me.mainStatStrip)
         Me.Controls.Add(Me.mainTb)
@@ -181,5 +203,7 @@ Partial Class MainView
     Friend WithEvents browser As System.Windows.Forms.WebBrowser
     Friend WithEvents ToolStripSeparator1 As System.Windows.Forms.ToolStripSeparator
     Friend WithEvents mainTbShowMapForDirectionsBtn As System.Windows.Forms.ToolStripButton
+    Friend WithEvents DirectionsTxt As System.Windows.Forms.TextBox
+    Friend WithEvents VertSplitter As System.Windows.Forms.Splitter
 
 End Class

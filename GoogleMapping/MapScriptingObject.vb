@@ -50,8 +50,6 @@ Public Class MapScriptingObject
     End Sub
 
     Public Sub setDirectionsCompleted()
-        If DirectionsSteps Is Nothing Then Exit Sub
-
         Dim e = New MapEventArgs With {.DirectionsResult = DirectionsSteps}
         DirectionsSteps = Nothing
         RaiseEvent DirectionsCompleted(Me, e)
