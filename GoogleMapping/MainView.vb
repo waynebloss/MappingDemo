@@ -30,7 +30,8 @@
         MakeDirectionsVisible(False)
         ' Code to demonstrate geocoding in the WebBrowser control.
         Dim map = New MapForGeocoding()
-        map.FindByAddress = "55 Gilbert St N, Tinton Falls, NJ 07701"
+        'map.FindByAddress = "55 Gilbert St N, Tinton Falls, NJ 07701"
+        map.FindByLatLng = New MapLatLng(40.42951, -86.87892)
         browser.DocumentText = map.GetHtml()
     End Sub
 

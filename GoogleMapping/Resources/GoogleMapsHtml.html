@@ -134,7 +134,7 @@
             if (this.address != null && this.address.length > 0)
                 options.address = this.address;
             if (this.addressLatLng != null) {
-                options.location = addressLatLng;
+                options.location = this.addressLatLng;
             }
             this.geocoder.geocode(options, function(results, status) {
                 if (status != google.maps.GeocoderStatus.OK)
